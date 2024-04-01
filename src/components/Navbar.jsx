@@ -5,8 +5,8 @@ const Navbar = () => {
   return (
     <div className="bg-[#4f028f] w-full h-[15vh] flex justify-between items-center px-20 text-white">
        <div className="text-xl">NotesHub</div>
-        <div className="hidden"><RxHamburgerMenu /></div>
-        <ul className="flex space-x-5">
+        <div className="md:hidden"><RxHamburgerMenu /></div>
+        <ul className=" space-x-5 hidden md:flex">
           {/* <li>Home</li>
           <li>Notes</li>
           <li>About Us</li>
