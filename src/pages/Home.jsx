@@ -1,12 +1,11 @@
-// import React from 'react'
-import Navbar from "../components/Navbar"
-import Hero from "../components/Hero"
+import React from 'react'
+
 const Home = () => {
   return (
-    <div className="font-popins">
-        <Navbar />
-        <Hero />
-    </div>
+    <>
+   home
+    
+    </>
   )
 }
 
