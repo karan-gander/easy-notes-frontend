@@ -10,7 +10,9 @@ export default {
     }
     ,
     extend: {
-      
+      colors:{
+        primary:"#4f028f"
+      },
       fontFamily:{
         popins:["Poppins", "sans-serif"]
       }

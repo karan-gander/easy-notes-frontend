@@ -5,6 +5,7 @@ import React from 'react'
 const Login = () => {
   return (
     <>
+    <Navbar />
     <Hero page="Sign In" opp={true}/>
     </>
   )
