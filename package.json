@@ -6,16 +6,23 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "bun run dev --host",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.4",
+    "axios": "^1.6.8",
     "framer-motion": "^11.1.7",
     "lucide-react": "^0.368.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.51.4",
     "react-icons": "^5.0.1",
-    "react-router-dom": "^6.22.3"
+    "react-router-dom": "^6.22.3",
+    "react-toastify": "^10.0.5",
+    "universal-cookie": "^7.1.4",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
@@ -27,6 +34,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "postcss": "^8.4.35",
+    "sass": "^1.77.2",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.6"
   }

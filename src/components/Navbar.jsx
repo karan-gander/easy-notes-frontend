@@ -7,10 +7,11 @@ const Navbar = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const handleMenu = () => {
     setMobileMenu(!mobileMenu);
+    
   };
   return (
     <>
-      <div className="bg-[#4f028f] w-full py-[2.39rem] flex justify-between items-center px-20 text-white  sticky  top-0 shadow-xl">
+      <div className="bg-[#4f028f] w-full z-50 py-[2.39rem] flex justify-between items-center px-20 text-white  sticky  top-0 shadow-xl">
         <div className="text-xl font-popins">Easy Notes</div>
         <div className="md:hidden">
           <RxHamburgerMenu
@@ -29,18 +30,16 @@ const Navbar = () => {
           <Link to="/old-papers" className="hover:text-[#e5e1e8]">
             Old Papers
           </Link>
-          <Link to="/about-us" className="hover:text-[#e5e1e8]">
-            About Us
+          <Link to="/my-team" className="hover:text-[#e5e1e8]">
+            My Team
           </Link>
-          <Link to="contact-us" className="hover:text-[#e5e1e8]">
-            Contact Us
-          </Link>
+          
           <Link className="hover:text-[#e5e1e8] hidden">Log Out</Link>
         </ul>
 
         {/* Mobile Views */}
         <div
-          className={`w-full h-[450px] bg-transparent p-5 absolute z-10  left-0  right-0 font-popins font-medium transition-all duration-500 ${
+          className={`w-full h-[450px] bg-transparent p-5 absolute z-20  left-0  right-0 font-popins font-medium transition-all duration-500 ${
             mobileMenu ? "top-0" : "-top-[500px]"
           }`}
         >
@@ -52,19 +51,19 @@ const Navbar = () => {
               </span>
             </div>
             <ul className="bg-white w-full text-[#4f028f] flex flex-col items-center  ">
-              <Link to="/" className="hover:text-[#e5e1e8] font-popins">
+              <Link to="/" className="font-popins px-9 py-2 hover:border border-primary rounded-md ">
                 Home
               </Link>
-              <Link to="/notes" className="hover:text-[#e5e1e8]">
+              <Link to="/notes" className="font-popins px-9 py-2 hover:border border-primary rounded-md ">
                 Notes
               </Link>
-              <Link to="/old-papers" className="hover:text-[#e5e1e8]">
+              <Link to="/old-papers" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
                 Old Papers
               </Link>
-              <Link to="/about-us" className="hover:text-[#e5e1e8]">
+              <Link to="/about-us" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
                 About Us
               </Link>
-              <Link to="contact-us" className="hover:text-[#e5e1e8]">
+              <Link to="contact-us" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
                 Contact Us
               </Link>
               <Link className="hover:text-[#e5e1e8] hidden">Log Out</Link>

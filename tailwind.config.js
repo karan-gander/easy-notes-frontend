@@ -5,10 +5,10 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    screens:{
-      md:"1025px"
-    }
-    ,
+    // screens:{
+    //   md:"1025px"
+    // }
+    // ,
     extend: {
       colors:{
         primary:"#4f028f"
