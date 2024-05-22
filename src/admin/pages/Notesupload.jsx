@@ -65,7 +65,7 @@ const uploadNotes = async(data,e)=>{
             ]}
             values={["CE", "ME", "EL", "ELC", "CS"]}
           />
-          <Select
+          {/* <Select
             label="Year"
             {...register("year")}
             options={[
@@ -75,7 +75,7 @@ const uploadNotes = async(data,e)=>{
               "Third Year",
             ]}
             values={["First", "Second", "Third"]}
-          />
+          /> */}
           <Select
             label="Semester"
             {...register("semseter")}

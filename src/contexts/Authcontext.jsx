@@ -18,31 +18,49 @@ const Authprovider = function ({ children }) {
   const accessToken = cookie.get("accessToken")
   // const refreshToken = Cookies.get("refreshToken")
   console.log("out acess uni",)
-  useEffect(()=>{
-    (
-      async()=>{
-        setLoading(true)
-        console.log("js accessToken",accessToken)
-      if (accessToken!==undefined){
-        const getUser = await usePostApi("post","/api/v1/user/currunt-user")
-        console.log("get user",getUser)
-        setUser(getUser.data.data)
-        console.log("insideaccess to nav")
-        // return 
-        navigate("/my-profile")
-        setLoading(false)
-        
+  useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true);
+      if (accessToken) {
+        try {
+          const getUser = await usePostApi("post", "/api/v1/user/currunt-user", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setUser(getUser.data.data);
+          navigate("/my-profile");
+        } catch (error) {
+          console.error("Failed to fetch user", error);
+          navigate("/signin");
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+        navigate("/signin");
       }
-      else{
-        setLoading(false)
-        navigate("/signin")
-      }
-      
-      }
-    )()
-    
+    };
 
-  },[])
+    fetchUser();
+  }, [accessToken, navigate]);
+
+  useEffect(() => {
+    const handleTokenChange = () => {
+      const newAccessToken = cookie.get("accessToken");
+      if (!newAccessToken) {
+        navigate("/signin");
+      }
+    };
+
+    
+    cookie.addChangeListener(handleTokenChange);
+
+    // Cleanup function
+    return () => {
+      cookie.removeChangeListener(handleTokenChange);
+    };
+  }, [navigate]);
 
 
   return (
