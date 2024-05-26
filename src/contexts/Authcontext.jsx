@@ -17,7 +17,7 @@ const Authprovider = function ({ children }) {
   const navigate = useNavigate()
   const accessToken = cookie.get("accessToken")
   // const refreshToken = Cookies.get("refreshToken")
-  console.log("out acess uni",)
+  // console.log("out acess uni",)
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
@@ -29,7 +29,7 @@ const Authprovider = function ({ children }) {
             },
           });
           setUser(getUser.data.data);
-          navigate("/my-profile");
+          // navigate("/my-profile");
         } catch (error) {
           console.error("Failed to fetch user", error);
           navigate("/signin");

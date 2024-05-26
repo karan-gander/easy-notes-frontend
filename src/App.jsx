@@ -11,8 +11,10 @@ import Dashboard from "./admin/pages/Dashboard.jsx";
 import OldPapers from "./components/OldPapers";
 import { Authprovider } from "./contexts/Authcontext.jsx";
 import Oldpapersupload from "./admin/pages/Oldpaperupload.jsx";
+import DownloadPage from "./pages/DownloadPage.jsx";
 import Notesupload from "./admin/pages/Notesupload.jsx";
 import MyProfile from "./pages/MyProfile.jsx";
+import AdminLogin from "./admin/pages/Adminlogin.jsx";
 const App = () => {
   return (
     <>
@@ -20,13 +22,15 @@ const App = () => {
         <Route path="/signin" element={<Authprovider><Login /></Authprovider>} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home />} />
-        <Route path="/notes" element={<Notes />} />
-        <Route path="/old-papers" element={<OldPapers />} />
+        <Route path="/notes" element={<Authprovider><Notes /></Authprovider>} />
+        <Route path="/old-papers" element={<Authprovider><OldPapers /></Authprovider>} />
         <Route path="/my-team" element={<AboutPage />} />
+        {/* <Route path="/download" element={<DownloadPage />} /> */}
         <Route path="/my-profile" element={<Authprovider><MyProfile /></Authprovider>} />
 
         {/* admin routes */}
 
+        <Route path="/admin-signin" element={<AdminLogin />} />
         <Route path="/admin-dashboard" element={<Dashboard />} />
         <Route path="/upload-papers" element={<Oldpapersupload/>} />
         <Route path="/upload-notes" element={<Notesupload />} />

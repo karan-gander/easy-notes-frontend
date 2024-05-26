@@ -1,105 +1,207 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Navbar from "../../components/Navbar";
 import adminImg from "/admin.svg";
 import Select from "../../components/Select";
 import { Upload } from "lucide-react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, Bounce, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { usePostFileApi } from "../../controllers/usePostFile";
+import { useState } from "react";
+import UploadingButton from "../../components/Uploading";
 // import axios from "axios";
 const notesSchema = yup.object({
-  branch:yup.string().required("Please Select Your Branch"),
-  year:yup.string().required("Please Select Your year"),
-  semseter:yup.string().required("Please Select Your semeter"),
-  medium:yup.string().required("Please Select Your medium"),
-  notes:yup.string().required("Please Notes pdf")
+  branch: yup.string().required("Please Select Your Branch"),
+  // year:yup.string().required("Please Select Your year"),
+  semester: yup.string().required("Please Select Your semester"),
+  medium: yup.string().required("Please Select Your medium"),
+  notes: yup.string().required("Please Notes pdf"),
 });
 
 const Notesupload = () => {
   // const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
+  const [selectedBranch, setSelectedBranch] = useState("");
+  console.log("selseclsl", selectedBranch);
+  console.log("before change ");
+  const handleBranchChange = (value) => {
+    console.log("my eeeeee", value);
+    setSelectedBranch(value);
+  };
 
   const {
     register,
-    handleSubmit,reset,
+    handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(notesSchema),
   });
-console.log(errors)
-const uploadNotes = async(data,e)=>{
+  console.log(errors);
+  const uploadNotes = async (data, e) => {
     e.preventDefault();
-    console.log("event ",e.target.elements.notes.files[0])
-    console.log('upload',data.notes)
-    const Data  = {...data,notes:e.target.elements.notes.files[0]}
-    console.log("new Data",Data)
-   const response = await  usePostFileApi("/api/v1/admin/upload-notes",Data)
-  
-   console.log('upload res',response)
-  
-  reset()
 
-}
+    const Data = { ...data, notes: e.target.elements.notes.files[0] };
+    setLoading(true);
+    const response = await usePostFileApi("/api/v1/admin/upload-notes", Data);
 
+    const { status } = response;
+    // console.log(response.data.data);
+    if (status !== 200) {
+      toast.error(response.response.data.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setLoading(false);
+    } else {
+      toast.success(response.data.message, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+
+      setLoading(false);
+      // Cookies.set("accessToken",response.data.data.accessToken)
+      // console.log(response.data.data.accessToken)
+    }
+
+    console.log("upload res", response);
+
+    reset();
+  };
+
+  console.error("error obj", errors);
+
+  if (loading) {
+    return <UploadingButton />;
+  }
+  const semesterOptions = {
+    "": ["Please Select Your Branch"],
+    FI: ["Select Your Semester", "First Semester", "Second Semester"],
+    CE: [
+      "Select Your Semester",
+      "Third Semester",
+      "Fourth Semester",
+      "Five Semester",
+      "Six Semester",
+    ],
+    ME: [
+      "Select Your Semester",
+      "Third Semester",
+      "Fourth Semester",
+      "Five Semester",
+      "Six Semester",
+    ],
+    EL: [
+      "Select Your Semester",
+      "Third Semester",
+      "Fourth Semester",
+      "Five Semester",
+      "Six Semester",
+    ],
+    ELC: [
+      "Select Your Semester",
+      "Third Semester",
+      "Fourth Semester",
+      "Five Semester",
+      "Six Semester",
+    ],
+    CS: [
+      "Select Your Semester",
+      "Third Semester",
+      "Fourth Semester",
+      "Five Semester",
+      "Six Semester",
+    ],
+  };
 
   return (
     <>
       <Navbar />
-      <div className="bg-primary w-full h-full flex flex-wrap justify-around items-center px-10 overflow-auto">
-        <div className="flex flex-col items-center justify-center space-y-5">
+      <ToastContainer position="top-center" />
+      <div className="bg-primary w-full h-full flex flex-col md:flex-row justify-around items-center px-10 overflow-auto flex-grow basis-1/2">
+        <div className="fflex flex-col w-full md:w-1/2 items-center justify-center space-y-5 p-[5%]">
           <h2 className="text-white text-2xl font-popins">Upload Notes</h2>
 
           <img src={adminImg} className="size-80" alt="" />
         </div>
-        <form className="" encType="multipart/form-data"  onSubmit={handleSubmit(uploadNotes)}>
-          <Select
-            label="Branch"
-            {...register("branch")}
-            options={[
-              "Select Your Branch",
-              "Civil",
-              "Mechanical",
-              "Electrical",
-              "Electronics",
-              "Computer Science",
-            ]}
-            values={["CE", "ME", "EL", "ELC", "CS"]}
-          />
-          {/* <Select
-            label="Year"
-            {...register("year")}
-            options={[
-              "Select Your Year",
-              "First Year",
-              "Second Year",
-              "Third Year",
-            ]}
-            values={["First", "Second", "Third"]}
-          /> */}
-          <Select
-            label="Semester"
-            {...register("semseter")}
-            options={[
-              "Select Your Semester",
-              "First Semester",
-              "Second Semester",
-              "Third Semester",
-              "Fourth Semester",
-              "Five Semester",
-              "Six Semester",
-            ]}
-            values={["Firstsem", "Secondsem", "Thirdsem", "Fourthsem", "Fivesem"]}
-          />
-          <Select
-            label="Medium"
-            {...register("medium")}
-            options={["Select Your Medium", "English", "Hindi"]}
-            values={["English","Hindi"]}
-          />
-          <div>
-            <input type="file" {...register("notes")} id=""  />
+        <form
+          className="w-full h-fit bg-primary"
+          encType="multipart/form-data"
+          onSubmit={handleSubmit(uploadNotes)}
+        >
+          <div className="text-center">
+            <Select
+              label="Branch"
+              options={[
+                "Select Your Branch",
+                "Common First Year Branch",
+                "Civil",
+                "Mechanical",
+                "Electrical",
+                "Electronics",
+                "Computer Science",
+              ]}
+              SelectedBranch={handleBranchChange}
+              {...register("branch")}
+              values={["", "FI", "CE", "ME", "EL", "ELC", "CS"]}
+            />
+            <span className="text-white">
+              {errors.branch && errors.branch.message}
+            </span>
           </div>
-          <button type="submit" className="bg-[rgba(0,0,0,0.51)] flex items-center  text-white w-40 mx-auto  px-2 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all">
+
+          <div className="text-center">
+            <Select
+              label="Semester"
+              options={semesterOptions[`${selectedBranch}`]}
+              {...register("semester")}
+              values={["", "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"]}
+            />
+            <span className="text-white">
+              {errors.semester && errors.semester.message}
+            </span>
+          </div>
+          <div className="text-center">
+            <Select
+              label="Medium"
+              {...register("medium")}
+              options={["Select Your Medium", "English", "Hindi"]}
+              values={["", "English", "Hindi"]}
+            />{" "}
+            <span className="text-white">
+              {errors.medium && errors.medium.message}
+            </span>
+          </div>
+          <div>
+            <input
+              type="file"
+              {...register("notes")}
+              id=""
+              className="text-white m-5 p-5  cursor-pointer"
+            />
+            <span className="text-white">
+              {errors.notes && errors.notes.message}
+            </span>
+          </div>
+          <button
+            type="submit"
+            className="bg-[rgba(0,0,0,0.51)] flex items-center  text-white w-40 mx-auto  px-2 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all"
+          >
             <Upload className="px-2 size-8" /> Upload
           </button>
         </form>

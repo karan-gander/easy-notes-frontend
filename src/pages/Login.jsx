@@ -17,8 +17,7 @@ const loginSchema = yup.object({
   email: yup
     .string()
     .required("Email field is required")
-    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format")
-    ,
+    .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, "Invalid email format"),
   password: yup
     .string()
     .required("Password is required")
@@ -44,12 +43,9 @@ const Login = () => {
     //   "http://localhost:8000/api/v1/user/login",
     //   data
     // );
-    const response = await usePostApi("post",
-      "/api/v1/user/login",
-      data
-    );
-    
-    console.log(response)
+    const response = await usePostApi("post", "/api/v1/user/login", data);
+
+    console.log(response);
     const { status } = response;
     // console.log(response.data.data);
     if (status !== 200) {
@@ -76,25 +72,22 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
-      
+
       // Cookies.set("accessToken",response.data.data.accessToken)
       // console.log(response.data.data.accessToken)
 
       setTimeout(() => {
         navigate("/my-profile");
       }, 2000);
-      
     }
   };
 
   return (
     <>
-    <ToastContainer position="top-center" />
+      <ToastContainer position="top-center" />
       <div className="font-popins w-full flex flex-col h-full">
-      
         <Navbar />
         <div className="bg-primary w-full h-full flex flex-col items-center justify-around px-3 py-5 md:flex-row">
-          
           <div className="h-96 w-fit flex items-center justify-center">
             <video
               src={mainPhoto}
