@@ -24,10 +24,10 @@ const About = ()=>{
               <li>Khushali Goswami</li>
               <li>Hema Kanwar</li>
             </ul>
-            <div className="bg-gray-950 h-32 w-full p-5 text-white">
+            {/* <div className="bg-gray-950 h-32 w-full p-5 text-white">
                 <h1 className="text-white">Admin Contact Details</h1>
-                <h5>meghawalkaran@gmail.com</h5>
-            </div>
+                <h2 className="text-wrap">meghawalkaran@gmail.com</h2>
+            </div> */}
           </div>
         </div>
       </div>

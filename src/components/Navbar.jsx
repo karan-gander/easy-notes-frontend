@@ -2,9 +2,13 @@
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import { Link } from "react-router-dom";
+// import { useAuth } from "../contexts/Authcontext";
 import { useState } from "react";
-const Navbar = () => {
+const Navbar = ({isLogin,...props}) => {
+  console.log("kkk props ",props, isLogin)
   const [mobileMenu, setMobileMenu] = useState(false);
+  
+  
   const handleMenu = () => {
     setMobileMenu(!mobileMenu);
     
@@ -24,17 +28,21 @@ const Navbar = () => {
           <Link to="/" className="hover:text-[#e5e1e8]">
             Home
           </Link>
-          <Link to="/notes" className="hover:text-[#e5e1e8]">
+          {
+            isLogin?<Link to="/notes" className="hover:text-[#e5e1e8]">
             Notes
-          </Link>
-          <Link to="/old-papers" className="hover:text-[#e5e1e8]">
+          </Link>:null
+          }
+          {
+            isLogin?<Link to="/old-papers" className="hover:text-[#e5e1e8]">
             Old Papers
-          </Link>
+          </Link>:null
+          }
           <Link to="/my-team" className="hover:text-[#e5e1e8]">
             My Team
           </Link>
           
-          <Link className="hover:text-[#e5e1e8] hidden">Log Out</Link>
+          
         </ul>
 
         {/* Mobile Views */}
@@ -54,14 +62,18 @@ const Navbar = () => {
               <Link to="/" className="font-popins px-9 py-2 hover:border border-primary rounded-md ">
                 Home
               </Link>
-              <Link to="/notes" className="font-popins px-9 py-2 hover:border border-primary rounded-md ">
-                Notes
-              </Link>
-              <Link to="/old-papers" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
-                Old Papers
-              </Link>
-              <Link to="/about-us" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
-                About Us
+              {
+            isLogin?<Link to="/notes" className="hover:text-[#e5e1e8]">
+            Notes
+          </Link>:null
+          }
+          {
+            isLogin?<Link to="/old-papers" className="hover:text-[#e5e1e8]">
+            Old Papers
+          </Link>:null
+          }
+              <Link to="/my-team" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
+                My Team
               </Link>
               <Link to="contact-us" className="font-popins px-9 py-2 hover:border border-primary rounded-md">
                 Contact Us

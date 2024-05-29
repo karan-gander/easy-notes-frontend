@@ -9,7 +9,7 @@ import { ToastContainer, toast, Bounce } from "react-toastify";
 import { usePostApi } from "../controllers/usePostApi";
 
 export const MyProfile = () => {
-  const { user } = useAuth();
+  const { user,isLogin } = useAuth();
   const navigate = useNavigate()
   console.log(user, "use");
   const handleLogout = async()=>{
@@ -56,7 +56,7 @@ export const MyProfile = () => {
   return (
     <>
      <ToastContainer position="top-center" />
-      <Navbar />
+      <Navbar isLogin={isLogin}/>
       <div className="bg-primary h-full w-full flex items-center justify-center">
         <div className=" bg-white flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12 ">
         <LogOut className="cursor-pointer" onClick={handleLogout}/>

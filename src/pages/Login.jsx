@@ -11,6 +11,8 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { usePostApi } from "../controllers/usePostApi";
 import { useAuth } from "../contexts/Authcontext";
+import { useEffect, useState } from "react";
+import LoadingButton from "../components/Loadding";
 // import Cookies from "js-cookie";run
 
 const loginSchema = yup.object({
@@ -26,7 +28,16 @@ const loginSchema = yup.object({
 
 const Login = () => {
   // const { setAccessToken, setRefeshToken } = useAuth();
+  const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
+  const  {isLogin}  = useAuth();
+  useEffect(()=>{
+    if(isLogin){
+      navigate("/my-profile")
+    }
+  },[isLogin])
+  // console.warn("kkk log",isLogin);
+  
   const {
     register,
     handleSubmit,
@@ -38,13 +49,9 @@ const Login = () => {
   // console.log(errors)
 
   const onLogin = async (data) => {
-    console.log(data);
-    // const response = await usePostApi("post",
-    //   "http://localhost:8000/api/v1/user/login",
-    //   data
-    // );
+    setLoading(true)
     const response = await usePostApi("post", "/api/v1/user/login", data);
-
+    
     console.log(response);
     const { status } = response;
     // console.log(response.data.data);
@@ -60,6 +67,8 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
+
+      setLoading(false)
     } else {
       toast.success(response.data.message, {
         position: "top-center",
@@ -72,6 +81,7 @@ const Login = () => {
         theme: "light",
         transition: Bounce,
       });
+      setLoading(false)
 
       // Cookies.set("accessToken",response.data.data.accessToken)
       // console.log(response.data.data.accessToken)
@@ -84,9 +94,10 @@ const Login = () => {
 
   return (
     <>
-      <ToastContainer position="top-center" />
+
+    {loading?<LoadingButton/>:(<>      <ToastContainer position="top-center" />
       <div className="font-popins w-full flex flex-col h-full">
-        <Navbar />
+        <Navbar isLogin={isLogin} />
         <div className="bg-primary w-full h-full flex flex-col items-center justify-around px-3 py-5 md:flex-row">
           <div className="h-96 w-fit flex items-center justify-center">
             <video
@@ -113,12 +124,12 @@ const Login = () => {
                   {...register("email")}
                 />
                 <span className="text-red-500 pt-5">
-                  {errors.email && errors.username.email}
+                  {errors.email && errors.email.message}
                 </span>
               </div>
 
               <div>
-                <TextInput placeholder="Password" {...register("password")} />
+                <TextInput placeholder="Password" {...register("password")} type="password" />
                 <span className="text-red-500">
                   {errors.password && errors.password.message}
                 </span>
@@ -135,7 +146,7 @@ const Login = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div></>)}
     </>
   );
 };

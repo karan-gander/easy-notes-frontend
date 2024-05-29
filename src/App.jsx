@@ -8,8 +8,9 @@ import AboutPage from "./pages/About";
 import { ErrorOne } from "./pages/ErrorOne";
 import LoadingButton from "./components/Loadding";
 import Dashboard from "./admin/pages/Dashboard.jsx";
-import OldPapers from "./components/OldPapers";
+import OldPapers from "./pages/OldPapers.jsx";
 import { Authprovider } from "./contexts/Authcontext.jsx";
+import { AdminAuthprovider } from "./contexts/AdminAuthContext.jsx";
 import Oldpapersupload from "./admin/pages/Oldpaperupload.jsx";
 import DownloadPage from "./pages/DownloadPage.jsx";
 import Notesupload from "./admin/pages/Notesupload.jsx";
@@ -30,13 +31,13 @@ const App = () => {
 
         {/* admin routes */}
 
-        <Route path="/admin-signin" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<Dashboard />} />
-        <Route path="/upload-papers" element={<Oldpapersupload/>} />
-        <Route path="/upload-notes" element={<Notesupload />} />
+        <Route path="/admin-signin" element={<AdminAuthprovider><AdminLogin /></AdminAuthprovider>} />
+        <Route path="/admin-dashboard" element={<AdminAuthprovider><Dashboard /></AdminAuthprovider>} />
+        <Route path="/upload-papers" element={<AdminAuthprovider><Oldpapersupload/></AdminAuthprovider>} />
+        <Route path="/upload-notes" element={<AdminAuthprovider><Notesupload /></AdminAuthprovider>} />
         
         <Route path="/*" element={<ErrorOne />} />
-        <Route path="/loading" element={<LoadingButton />} />
+        {/* <Route path="/loading" element={<LoadingButton />} /> */}
       </Routes>
     </>
   );

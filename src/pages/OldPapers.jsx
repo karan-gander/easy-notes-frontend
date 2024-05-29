@@ -1,28 +1,27 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Navbar from "../../components/Navbar";
-import adminImg from "/admin.svg";
-import Select from "../../components/Select";
-import { Upload } from "lucide-react";
+import Navbar from "../components/Navbar";
+import Select from "../components/Select";
+import oldPaperSvg from "/old.svg";
+import { Search } from "lucide-react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { usePostFileApi } from "../../controllers/usePostFile";
+import { usePostApi } from "../controllers/usePostApi";
 import { useState } from "react";
-import UploadingButton from "../../components/Uploading";
-import { Link } from "react-router-dom";
-// import axios from "axios";
+import pdfIcon from "/pdf.png";
+import LoadingButton from "../components/Loadding";
+import { useAuth } from "../contexts/Authcontext";
 const notesSchema = yup.object({
   branch: yup.string().required("Please Select Your Branch"),
-  // year:yup.string().required("Please Select Your year"),
   semester: yup.string().required("Please Select Your semester"),
-  medium: yup.string().required("Please Select Your medium"),
-  notes: yup.string().required("Please Notes pdf"),
+  
 });
 
-const Notesupload = () => {
-  // const navigate = useNavigate();
+const Notes = () => {
   const [loading, setLoading] = useState(false);
+  const {isLogin} = useAuth()
+  // console.warn("hii",isLogin)
   const [selectedBranch, setSelectedBranch] = useState("");
   console.log("selseclsl", selectedBranch);
   console.log("before change ");
@@ -31,21 +30,35 @@ const Notesupload = () => {
     setSelectedBranch(value);
   };
 
+  console.log("after change");
+  const [response, setResponse] = useState({
+    data: {
+      data: {
+        success: false,
+      },
+    },
+  });
   const {
     register,
     handleSubmit,
     reset,
+    
     formState: { errors },
   } = useForm({
     resolver: yupResolver(notesSchema),
   });
   console.log(errors);
-  const uploadNotes = async (data, e) => {
-    e.preventDefault();
 
-    const Data = { ...data, notes: e.target.elements.notes.files[0] };
+  const downloadPapers = async (data) => {
     setLoading(true);
-    const response = await usePostFileApi("/api/v1/admin/upload-notes", Data);
+    const response = await usePostApi(
+      "post",
+      "/api/v1/user/papers-download",
+      data
+    );
+    console.log("data", data);
+
+    
 
     const { status } = response;
     // console.log(response.data.data);
@@ -61,7 +74,6 @@ const Notesupload = () => {
         theme: "light",
         transition: Bounce,
       });
-      setLoading(false);
     } else {
       toast.success(response.data.message, {
         position: "top-center",
@@ -80,16 +92,51 @@ const Notesupload = () => {
       // console.log(response.data.data.accessToken)
     }
 
-    console.log("upload res", response);
+    setResponse(response);
 
     reset();
   };
-
-  console.error("error obj", errors);
+  // console.log("response is here ", response);
 
   if (loading) {
-    return <UploadingButton />;
+    return <LoadingButton />;
   }
+
+  if (response.status === 200) {
+    return (
+      <div>
+        <ToastContainer position="top-center" />
+        <Navbar isLogin={isLogin}/>
+        {response.data.data.papers.length <= 0 ? (
+          <main className="flex-grow p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              Notes are not availble for this branch we will upload soon
+            </div>
+          </main>
+        ) : (
+          <main className="flex-grow p-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {response.data.data.papers.map((pdfFile, i) => (
+                <a
+                  key={i}
+                  className="bg-gray-200 p-4"
+                  href={pdfFile.url}
+                  target="_blank"
+                >
+                  <img src={pdfIcon} className="size-20" alt="" />
+                  <p className="text-md p-4 font-popins">{pdfFile.fileName}</p>
+                </a>
+              ))}
+            </div>
+            
+          </main>
+        )}
+        <button className="bg-black text-white px-5 py-3 rounded-md text-center m-5" onClick={()=>window.location.reload()}>Go Back</button>
+       
+      </div>
+    );
+  }
+
   const semesterOptions = {
     "": ["Please Select Your Branch"],
     FI: ["Select Your Semester", "First Semester", "Second Semester"],
@@ -99,6 +146,7 @@ const Notesupload = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
+      
     ],
     ME: [
       "Select Your Semester",
@@ -106,6 +154,7 @@ const Notesupload = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
+      
     ],
     EL: [
       "Select Your Semester",
@@ -113,6 +162,7 @@ const Notesupload = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
+      
     ],
     ELC: [
       "Select Your Semester",
@@ -120,6 +170,7 @@ const Notesupload = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
+      
     ],
     CS: [
       "Select Your Semester",
@@ -127,9 +178,10 @@ const Notesupload = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
+      
     ],
+   
   };
-
   const values = {
     "":"",
     FI:[
@@ -157,23 +209,25 @@ const Notesupload = () => {
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
   }
-
   return (
     <>
-      <Navbar />
+      <Navbar isLogin={isLogin} />
       <ToastContainer position="top-center" />
       <div className="bg-primary w-full h-full flex flex-col md:flex-row justify-around items-center px-10 overflow-auto flex-grow basis-1/2">
-        <div className="fflex flex-col w-full md:w-1/2 items-center justify-center space-y-5 p-[5%]">
-          <h2 className="text-white text-2xl font-popins">Upload Notes</h2>
-
-          <img src={adminImg} className="size-80" alt="" />
+        <div className="flex flex-col w-full md:w-1/2 items-center justify-center space-y-5 p-[5%]">
+          <h2 className="text-white text-2xl font-popins">Welcome Back!</h2>
+          <h4 className="text-white font-popins">Download Old Papers</h4>
+          <img
+            src={oldPaperSvg}
+            className="w-full p-10 aspect-square max-w-lg min-w-72"
+            alt=""
+          />
         </div>
-        <form
-          className="w-full h-fit bg-primary"
-          encType="multipart/form-data"
-          onSubmit={handleSubmit(uploadNotes)}
-        >
-          <div className="text-center">
+        <div className="w-full md:w-1/2  p-[5%]">
+          <form
+            className="flex flex-col"
+            onSubmit={handleSubmit(downloadPapers)}
+          >
             <Select
               label="Branch"
               options={[
@@ -189,60 +243,28 @@ const Notesupload = () => {
               {...register("branch")}
               values={["", "FI", "CE", "ME", "EL", "ELC", "CS"]}
             />
-            <span className="text-white">
-              {errors.branch && errors.branch.message}
-            </span>
-          </div>
+            <p className="text-white">{errors.branch&&errors.branch.message}</p>
 
-          <div className="text-center">
             <Select
               label="Semester"
               options={semesterOptions[`${selectedBranch}`]}
-              {...register("semester")}
               selectedBranch={handleBranchChange}
               // values={["","Thirdsem", "Fourthsem", "Fivesem", "Sixsem"]}
               values={values[`${selectedBranch}`]}
+              {...register("semester")}
+              // values={["", "Thirdsem", "Fourthsem", "Fivesem","Sixsem"]}
             />
-            <span className="text-white">
-              {errors.semester && errors.semester.message}
-            </span>
-          </div>
-          <div className="text-center">
-            <Select
-              label="Medium"
-              {...register("medium")}
-              options={["Select Your Medium", "English", "Hindi"]}
-              values={["", "English", "Hindi"]}
-            />{" "}
-            <span className="text-white">
-              {errors.medium && errors.medium.message}
-            </span>
-          </div>
-          <div>
-            <input
-              type="file"
-              {...register("notes")}
-              id=""
-              className="text-white m-5 p-5  cursor-pointer"
-            />
-            <span className="text-white">
-              {errors.notes && errors.notes.message}
-            </span>
-          </div>
-          <button
-            type="submit"
-            className="bg-[rgba(0,0,0,0.51)] flex items-center  text-white w-40 mx-auto  px-2 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all"
-          >
-            <Upload className="px-2 size-8" /> Upload
-          </button>
-          
-           <Link to="/admin-dashboard" className="bg-[rgba(0,0,0,0.51)] flex items-center justify-center  text-white w-40 mx-auto  px-2 py-3 text-center rounded-2xl my-5 transition-all"> Go Back</Link>
-         
-          
-        </form>
+            <p className="text-white">{errors.semester&&errors.semester.message}</p>
+            
+
+            <button className="bg-[rgba(0,0,0,0.51)] flex justify-center items-center text-white w-full  px-10 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all">
+              <Search /> Search
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );
 };
 
-export default Notesupload;
+export default Notes;
