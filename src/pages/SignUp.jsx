@@ -117,7 +117,7 @@ const SignUp = () => {
               <span className="text-red-500">{errors.fullName && errors.fullName.message}</span>
             </div>
             <div>
-              <TextInput placeholder="Password" {...register("password")} />
+              <TextInput placeholder="Password" type="password" {...register("password")} />
               <span className="text-red-500">{errors.password && errors.password.message}</span>
             </div>
             <Button customClass="bg-[#4f028f] text-white  hover:bg-[#4f028f]/90">Create Account</Button>

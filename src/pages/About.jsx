@@ -20,7 +20,7 @@ const About = ()=>{
             <h1 className="text-xl text-primary font-popins">Meet My Team</h1>
             <ul>
               <li>Karan Meghawal</li>
-              <li>Sohail Malik</li>
+              <li>Suhail Malik</li>
               <li>Khushali Goswami</li>
               <li>Hema Kanwar</li>
             </ul>
