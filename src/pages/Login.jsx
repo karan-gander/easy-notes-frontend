@@ -50,7 +50,7 @@ const Login = () => {
 
   const onLogin = async (data) => {
     setLoading(true)
-    const response = await usePostApi("post", "/api/v1/user/login", data);
+    const response = await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/user/login", data);
     
     console.log(response);
     const { status } = response;
