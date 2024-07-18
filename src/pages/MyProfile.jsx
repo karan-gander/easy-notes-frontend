@@ -14,7 +14,7 @@ export const MyProfile = () => {
   console.log(user, "use");
   const handleLogout = async()=>{
     console.log("hii ")
-   const response =  await usePostApi("post", "/api/v1/user/logout")
+   const response =  await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/user/logout")
   //  console.log(reslog)
    const { status } = response;
    // console.log(response.data.data);

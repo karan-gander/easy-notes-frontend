@@ -55,7 +55,7 @@ const Notes = () => {
     setLoading(true);
     const response = await usePostApi(
       "post",
-      "/api/v1/user/notes-download",
+      "https://easy-notes-backend.onrender.com/api/v1/user/notes-download",
       data
     );
     console.log("data", data);

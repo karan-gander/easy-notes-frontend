@@ -29,7 +29,7 @@ const Authprovider = function ({ children }) {
       setLoading(true);
       if (accessToken) {
         try {
-          const getUser = await usePostApi("post", "/api/v1/user/currunt-user", {
+          const getUser = await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/user/currunt-user", {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

@@ -45,7 +45,7 @@ const Notesupload = () => {
 
     const Data = { ...data, paper: e.target.elements.paper.files[0] };
     setLoading(true);
-    const response = await usePostFileApi("/api/v1/admin/upload-oldpapers", Data);
+    const response = await usePostFileApi("https://easy-notes-backend.onrender.com/api/v1/admin/upload-oldpapers", Data);
 
     const { status } = response;
     // console.log(response.data.data);

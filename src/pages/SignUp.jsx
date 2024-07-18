@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const onsubmit = async (data) => {
     console.log(data, "data")
-    const response = await usePostApi("post","/api/v1/user/register", data)
+    const response = await usePostApi("post","https://easy-notes-backend.onrender.com/api/v1/user/register", data)
     console.log(response)
 
     const { status, message } = response

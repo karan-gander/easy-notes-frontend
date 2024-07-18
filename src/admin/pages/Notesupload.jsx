@@ -45,7 +45,7 @@ const Notesupload = () => {
 
     const Data = { ...data, notes: e.target.elements.notes.files[0] };
     setLoading(true);
-    const response = await usePostFileApi("/api/v1/admin/upload-notes", Data);
+    const response = await usePostFileApi("https://easy-notes-backend.onrender.com/api/v1/admin/upload-notes", Data);
 
     const { status } = response;
     // console.log(response.data.data);
