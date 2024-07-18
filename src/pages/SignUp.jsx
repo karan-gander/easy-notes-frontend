@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const onsubmit = async (data) => {
     console.log(data, "data")
-    const response = await usePostApi("post","http://localhost:8000/api/v1/user/register", data)
+    const response = await usePostApi("post","/api/v1/user/register", data)
     console.log(response)
 
     const { status, message } = response
