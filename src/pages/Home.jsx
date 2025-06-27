@@ -36,7 +36,7 @@ const Home = () => {
 
         <div className=" rounded h-1/2 w-full max-h-96 min-h-52 flex items-center space-y-10 flex-col md:mt-20 ">
         <video src={mainPhoto} loop autoPlay muted className="h-full mt-5 w-[80%] md:w-[90%]"></video>
-        <Button customClass="bg-white font-popins text-[#4f028f]  hover:bg-[#fff]/90 "><Link to="/signin">Get Started</Link></Button>
+        <Button customClass="bg-white font-popins text-[#4f028f]  hover:bg-[#fff]/90 "><Link to="/my-profile">Get Started</Link></Button>
         </div>
         
     </div>

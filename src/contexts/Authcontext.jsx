@@ -20,19 +20,20 @@ const Authprovider = function ({ children }) {
   const [isLogin,setIslogin] = useState(false)
   const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
-  const accessToken = cookie.get("accessToken")
-  // const refreshToken = Cookies.get("refreshToken")
-  // console.log("out acess uni",)
+    
+  // const accessToken = Cookies.get("accessToken")
   
+  // console.log("out acess uni",)
+
   useEffect(() => {
     const fetchUser = async () => {
       setLoading(true);
-      if (accessToken) {
+      if (true) {
         try {
-          const getUser = await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/user/currunt-user", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+          const getUser = await usePostApi("post", "http://localhost:10000/api/v1/user/currunt-user", {
+            // headers: {
+            //   Authorization: `Bearer ${accessToken}`,
+            // },
           });
           setUser(getUser.data.data);
           setIslogin(true)
@@ -49,10 +50,45 @@ const Authprovider = function ({ children }) {
         setIslogin(false)
         navigate("/signin");
       }
-    };
+    };                                
+    // 506DPFLF998901
 
     fetchUser();
-  }, [accessToken, navigate]);
+  }, []);
+
+
+
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      setLoading(true);
+      if (true) {
+        try {
+          const getUser = await usePostApi("post", "http://localhost:10000/api/v1/user/currunt-user", {
+            // headers: {
+            //   Authorization: `Bearer ${accessToken}`,
+            // },
+          });
+          setUser(getUser.data.data);
+          setIslogin(true)
+          navigate(curruntRoute.pathname);
+        } catch (error) {
+          console.error("Failed to fetch user", error);
+          setIslogin(false)
+          navigate("/signin");
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+        setIslogin(false)
+        navigate("/signin");
+      }
+    };                                
+    // 506DPFLF998901
+
+    fetchUser();
+  }, [ navigate]);
 
   useEffect(() => {
     const handleTokenChange = () => {

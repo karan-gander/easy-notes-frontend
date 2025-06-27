@@ -2,8 +2,8 @@
 import axios,{isCancel} from "axios"
 
 export const usePostApi = async (method,url,data={})=>{
-    // console.log(url)
-    // console.log(data)
+    // console.log(url)   
+    console.log(data)
     const controller = new AbortController();
 
     return (

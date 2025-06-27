@@ -1,6 +1,6 @@
 import myTeam from "/myteam.svg"
 import Navbar from "../components/Navbar"
-const About = ()=>{
+const About = () => {
   return (
     <>
       <Navbar />
@@ -19,11 +19,20 @@ const About = ()=>{
           <div className="bg-white w-full h-96 rounded-md p-10 shadow-xl text-center space-y-5">
             <h1 className="text-xl text-primary font-popins">Meet My Team</h1>
             <ul>
-              <li>Karan Meghawal</li>
-              <li>Suhail Malik</li>
-              <li>Khushali Goswami</li>
-              <li>Hema Kanwar</li>
+              <li><b>Karan Meghawal (Team Leader)</b></li>
+              <li>Narendra Vaishnav</li>
+              <li>Mayank </li>
+              <li>Aditya Kumar</li>
             </ul>
+
+            <div>
+              <h1 className="text-xl text-primary">Minor Support Team</h1>
+              <ul>
+                <li>Suhail Malik</li>
+                <li>Khushali Goswami</li>
+                <li>Hema Kanwar</li>
+              </ul>
+            </div>
             {/* <div className="bg-gray-950 h-32 w-full p-5 text-white">
                 <h1 className="text-white">Admin Contact Details</h1>
                 <h2 className="text-wrap">meghawalkaran@gmail.com</h2>

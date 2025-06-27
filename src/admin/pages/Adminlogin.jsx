@@ -40,7 +40,7 @@ const AdminLogin = () => {
   const onLogin = async (data) => {
     console.log(data);
 
-    const response = await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/admin/login", data);
+            const response = await usePostApi("post", "http://localhost:10000 /api/v1/admin/login", data);
 
     console.log(response);
     const { status } = response;

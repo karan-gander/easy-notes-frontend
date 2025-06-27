@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "start": "bun run dev --host",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@tanstack/react-table": "^8.21.2",
     "axios": "^1.6.8",
     "framer-motion": "^11.1.7",
     "lucide-react": "^0.368.0",
@@ -36,6 +37,6 @@
     "postcss": "^8.4.35",
     "sass": "^1.77.2",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.1.6"
+    "vite": "^6.2.3"
   }
 }

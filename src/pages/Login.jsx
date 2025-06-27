@@ -30,12 +30,12 @@ const Login = () => {
   // const { setAccessToken, setRefeshToken } = useAuth();
   const [loading,setLoading] = useState(false)
   const navigate = useNavigate();
-  const  {isLogin}  = useAuth();
-  useEffect(()=>{
-    if(isLogin){
-      navigate("/my-profile")
-    }
-  },[isLogin])
+  // const  {isLogin}  = useAuth();
+  // useEffect(()=>{
+  //   if(){
+  //     navigate("/my-profile")
+  //   }
+  // },[])
   // console.warn("kkk log",isLogin);
   
   const {
@@ -50,13 +50,13 @@ const Login = () => {
 
   const onLogin = async (data) => {
     setLoading(true)
-    const response = await usePostApi("post", "https://easy-notes-backend.onrender.com/api/v1/user/login", data);
+    const response = await usePostApi("post", "http://localhost:10000/api/v1/user/login", data);
     
     console.log(response);
     const { status } = response;
     // console.log(response.data.data);
     if (status !== 200) {
-      toast.error(response.response.data.message, {
+      toast.error(response.response.data.message      , {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -97,7 +97,7 @@ const Login = () => {
 
     {loading?<LoadingButton/>:(<>      <ToastContainer position="top-center" />
       <div className="font-popins w-full flex flex-col h-full">
-        <Navbar isLogin={isLogin} />
+        <Navbar  />
         <div className="bg-primary w-full h-full flex flex-col items-center justify-around px-3 py-5 md:flex-row">
           <div className="h-96 w-fit flex items-center justify-center">
             <video
@@ -110,7 +110,7 @@ const Login = () => {
           </div>
           <div className="bg-white w-fit h-96 flex flex-col  space-y-5 items-center p-10 rounded-md">
             <h2 className="text-xl font-medium leading-tight text-black sm:text-xl">
-              Log In Your Account
+              Log In Your Accounts
             </h2>
 
             <form

@@ -12,6 +12,7 @@ import { useState } from "react";
 import pdfIcon from "/pdf.png";
 import LoadingButton from "../components/Loadding";
 import { useAuth } from "../contexts/Authcontext";
+import { Link } from "react-router-dom";
 const notesSchema = yup.object({
   branch: yup.string().required("Please Select Your Branch"),
   // year:yup.string().required("Please Select Your year"),
@@ -22,7 +23,7 @@ const notesSchema = yup.object({
 
 const Notes = () => {
   const [loading, setLoading] = useState(false);
-  const {isLogin} = useAuth()
+  // const {isLogin} = useAuth()
   // console.warn("hii",isLogin)
   const [selectedBranch, setSelectedBranch] = useState("");
   console.log("selseclsl", selectedBranch);
@@ -44,7 +45,7 @@ const Notes = () => {
     register,
     handleSubmit,
     reset,
-    
+
     formState: { errors },
   } = useForm({
     resolver: yupResolver(notesSchema),
@@ -55,12 +56,12 @@ const Notes = () => {
     setLoading(true);
     const response = await usePostApi(
       "post",
-      "https://easy-notes-backend.onrender.com/api/v1/user/notes-download",
+      "http://localhost:10000/api/v1/user/notes-download",
       data
     );
     console.log("data", data);
 
-    
+
 
     const { status } = response;
     // console.log(response.data.data);
@@ -108,7 +109,8 @@ const Notes = () => {
     return (
       <div>
         <ToastContainer position="top-center" />
-        <Navbar isLogin={isLogin}/>
+        <Navbar />
+        {/* <Navbar isLogin={isLogin} /> */}
         {response.data.data.notes.length <= 0 ? (
           <main className="flex-grow p-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -130,11 +132,11 @@ const Notes = () => {
                 </a>
               ))}
             </div>
-            
+
           </main>
         )}
-        <button className="bg-black text-white px-5 py-3 rounded-md text-center m-5" onClick={()=>window.location.reload()}>Go Back</button>
-       
+        <button className="bg-black text-white px-5 py-3 rounded-md text-center m-5" onClick={() => window.location.reload()}>Go Back</button>
+
       </div>
     );
   }
@@ -148,7 +150,7 @@ const Notes = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
-      
+
     ],
     ME: [
       "Select Your Semester",
@@ -156,7 +158,7 @@ const Notes = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
-      
+
     ],
     EL: [
       "Select Your Semester",
@@ -164,7 +166,7 @@ const Notes = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
-      
+
     ],
     ELC: [
       "Select Your Semester",
@@ -172,7 +174,7 @@ const Notes = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
-      
+
     ],
     CS: [
       "Select Your Semester",
@@ -180,40 +182,41 @@ const Notes = () => {
       "Fourth Semester",
       "Five Semester",
       "Six Semester",
-      
+
     ],
-   
+
   };
   const values = {
-    "":"",
-    FI:[
+    "": "",
+    FI: [
       " ",
       "Firstsem", "Secondsem",
     ],
-    CE:[
+    CE: [
       " ",
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
-    ME:[
+    ME: [
       " ",
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
-    EL:[
+    EL: [
       " ",
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
-    ELC:[
+    ELC: [
       " ",
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
-    CS:[
+    CS: [
       " ",
       "Thirdsem", "Fourthsem", "Fivesem", "Sixsem"
     ],
   }
   return (
     <>
-      <Navbar isLogin={isLogin} />
+      {/* <Navbar isLogin={isLogin} /> */}
+      <Navbar />
       <ToastContainer position="top-center" />
       <div className="bg-primary w-full h-full flex flex-col md:flex-row justify-around items-center px-10 overflow-auto flex-grow basis-1/2">
         <div className="flex flex-col w-full md:w-1/2 items-center justify-center space-y-5 p-[5%]">
@@ -245,7 +248,7 @@ const Notes = () => {
               {...register("branch")}
               values={["", "FI", "CE", "ME", "EL", "ELC", "CS"]}
             />
-            <p className="text-white">{errors.branch&&errors.branch.message}</p>
+            <p className="text-white">{errors.branch && errors.branch.message}</p>
 
             <Select
               label="Semester"
@@ -254,20 +257,23 @@ const Notes = () => {
               // values={["","Thirdsem", "Fourthsem", "Fivesem", "Sixsem"]}
               values={values[`${selectedBranch}`]}
               {...register("semester")}
-              // values={["", "Thirdsem", "Fourthsem", "Fivesem","Sixsem"]}
+            // values={["", "Thirdsem", "Fourthsem", "Fivesem","Sixsem"]}
             />
-            <p className="text-white">{errors.semester&&errors.semester.message}</p>
+            <p className="text-white">{errors.semester && errors.semester.message}</p>
             <Select
               label="Medium"
               {...register("medium")}
               options={["Select Your Medium", "English", "Hindi"]}
               values={["", "English", "Hindi"]}
             />
-            <p className="text-white">{errors.medium&&errors.medium.message}</p>
+            <p className="text-white">{errors.medium && errors.medium.message}</p>
 
             <button className="bg-[rgba(0,0,0,0.51)] flex justify-center items-center text-white w-full  px-10 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all">
               <Search /> Search
             </button>
+            <Link to='/my-profile'><button className="bg-[rgba(0,0,0,0.51)] flex justify-center items-center text-white w-full  px-10 py-3 rounded-tl-2xl rounded-br-2xl hover:rounded-2xl my-5 transition-all">
+              Back
+            </button></Link>
           </form>
         </div>
       </div>

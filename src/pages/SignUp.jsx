@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 // import React from 'react'
 import Navbar from "../components/Navbar";
-import { ToastContainer, toast,Bounce } from 'react-toastify';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import * as yup from "yup"
 import mainPhoto from "/main.mp4";
@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const onsubmit = async (data) => {
     console.log(data, "data")
-    const response = await usePostApi("post","https://easy-notes-backend.onrender.com/api/v1/user/register", data)
+    const response = await usePostApi("post", "http://localhost:10000/api/v1/user/register", data)
     console.log(response)
 
     const { status, message } = response
@@ -57,8 +57,8 @@ const SignUp = () => {
         transition: Bounce,
       });
 
-      
-      
+
+
     }
     else {
       // toast(response.response.data.message) 
@@ -74,10 +74,10 @@ const SignUp = () => {
         transition: Bounce,
       });
 
-      
-     setTimeout(() => {
-      navigate("/signin")
-     }, 2100);
+
+      setTimeout(() => {
+        navigate("/signin")
+      }, 2100);
     }
 
   }
