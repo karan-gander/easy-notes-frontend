@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, Bounce, ToastContainer } from "react-toastify";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { usePostApi } from "../controllers/usePostApi";
+import { useApi } from "../controllers/useApi";
 import { useState } from "react";
 import pdfIcon from "/pdf.png";
 import LoadingButton from "../components/Loadding";
@@ -54,7 +54,7 @@ const Notes = () => {
 
   const downloadNotes = async (data) => {
     setLoading(true);
-    const response = await usePostApi(
+    const response = await useApi(
       "post",
       "http://localhost:10000/api/v1/user/notes-download",
       data

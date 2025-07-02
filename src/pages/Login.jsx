@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { usePostApi } from "../controllers/usePostApi";
+import { useApi } from "../controllers/useApi";
 import { useAuth } from "../contexts/Authcontext";
 import { useEffect, useState } from "react";
 import LoadingButton from "../components/Loadding";
@@ -50,7 +50,7 @@ const Login = () => {
 
   const onLogin = async (data) => {
     setLoading(true)
-    const response = await usePostApi("post", "http://localhost:10000/api/v1/user/login", data);
+    const response = await useApi("post", "http://localhost:10000/api/v1/user/login", data);
     
     console.log(response);
     const { status } = response;

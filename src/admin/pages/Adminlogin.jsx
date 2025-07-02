@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import { usePostApi } from "../../controllers/usePostApi";
+import { useApi } from "../../controllers/useApi";
 
 // import Cookies from "js-cookie";run
 
@@ -40,7 +40,7 @@ const AdminLogin = () => {
   const onLogin = async (data) => {
     console.log(data);
 
-            const response = await usePostApi("post", "http://localhost:10000 /api/v1/admin/login", data);
+            const response = await useApi("post", "http://localhost:10000/api/v1/admin/login", data);
 
     console.log(response);
     const { status } = response;

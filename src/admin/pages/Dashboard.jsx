@@ -4,11 +4,11 @@ import adminDashboard from "/dashboard2.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { StickyNote ,NotebookPen,LogOut} from "lucide-react";
 import Button from "../../components/Button";
-import { usePostApi } from "../../controllers/usePostApi";
+import { useApi } from "../../controllers/useApi";
 const Dashboard = () => {
     const navigate  = useNavigate()
   const handleLogout =async ()=>{
-    const response = await usePostApi("post","/api/v1/admin/logout")
+    const response = await usePostApi("post","http://localhost:10000/api/v1/admin/logout")
     // console.log("response of logout",response)
     navigate("/admin-signin")
     

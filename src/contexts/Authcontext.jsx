@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import { useNavigate} from "react-router-dom";
-import {  usePostApi } from "../controllers/usePostApi";
+import {  useApi } from "../controllers/useApi";
 import { useLocation } from "react-router-dom";
 // import { set } from "react-hook-form";
 import LoadingButton from "../components/Loadding";

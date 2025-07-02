@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { usePostApi } from "../controllers/usePostApi";
+import { useApi } from "../controllers/useApi";
 import { useNavigate } from "react-router-dom";
 
 
@@ -38,7 +38,7 @@ const SignUp = () => {
 
   const onsubmit = async (data) => {
     console.log(data, "data")
-    const response = await usePostApi("post", "http://localhost:10000/api/v1/user/register", data)
+    const response = await useApi("post", "http://localhost:10000/api/v1/user/register", data)
     console.log(response)
 
     const { status, message } = response

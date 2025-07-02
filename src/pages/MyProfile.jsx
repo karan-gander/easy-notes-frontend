@@ -8,7 +8,7 @@ import dashboardmainImg from "/dashmain.svg";
 import oldPaperIcon from "/paper.png"
 import notesIcon from "/notebook.png"
 import { ToastContainer, toast, Bounce } from "react-toastify";
-import { usePostApi } from "../controllers/usePostApi";
+import { useApi } from "../controllers/useApi";
 
 export const MyProfile = () => {
   // const { user,isLogin } = useAuth();
@@ -16,7 +16,7 @@ export const MyProfile = () => {
   // console.log(user, "use");
   const handleLogout = async () => {
     console.log("hii ")
-    const response = await usePostApi("post", "http://localhost:10000/api/v1/user/logout")
+    const response = await useApi("post", "http://localhost:10000/api/v1/user/logout")
     //  console.log(reslog)
     const { status } = response;
     // console.log(response.data.data);

@@ -17,6 +17,7 @@ import DownloadPage from "./pages/DownloadPage.jsx";
 import Notesupload from "./admin/pages/Notesupload.jsx";
 import MyProfile from "./pages/MyProfile.jsx";
 import AdminLogin from "./admin/pages/Adminlogin.jsx";
+import ProtectedRoute from "./admin/pages/ProtectedRoute.jsx";
 const App = () => {
   return (
     <>
@@ -32,9 +33,13 @@ const App = () => {
 
         {/* admin routes */}
 
-        <Route path="/admin-signin" element={<AdminLogin />} />
-        <Route path="/admin-dashboard" element={<Dashboard />} />
-        <Route path="/upload-papers" element={<Oldpapersupload/>} />
+        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/admin-dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/upload-papers" element={<Oldpapersupload />} />
         <Route path="/upload-notes" element={<Notesupload />} />
 
 
@@ -50,11 +55,12 @@ const App = () => {
 
 
 
-        {/* <Route path="/admin-signin" element={<AdminAuthprovider><AdminLogin /></AdminAuthprovider>} />
+        {/* <Route path="/login" element={<AdminAuthprovider><AdminLogin /></AdminAuthprovider>} />
+        
         <Route path="/admin-dashboard" element={<AdminAuthprovider><Dashboard /></AdminAuthprovider>} />
         <Route path="/upload-papers" element={<AdminAuthprovider><Oldpapersupload/></AdminAuthprovider>} />
         <Route path="/upload-notes" element={<AdminAuthprovider><Notesupload /></AdminAuthprovider>} /> */}
-        
+
         <Route path="/*" element={<ErrorOne />} />
         {/* <Route path="/loading" element={<LoadingButton />} /> */}
       </Routes>
