@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
 
   useEffect(() => {
-    api.get("/admin/me")
+    api.get("http://localhost:10000/api/v1/admin/me")
       .then(() => {
         setAuthenticated(true);
       })

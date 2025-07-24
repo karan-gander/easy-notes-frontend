@@ -8,9 +8,9 @@ import { useApi } from "../../controllers/useApi";
 const Dashboard = () => {
     const navigate  = useNavigate()
   const handleLogout =async ()=>{
-    const response = await usePostApi("post","http://localhost:10000/api/v1/admin/logout")
-    // console.log("response of logout",response)
-    navigate("/admin-signin")
+    const response = await useApi("post","http://localhost:10000/api/v1/admin/logout")
+    console.log("response of logout",response)
+    navigate("/login")
     
   }
   return (
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
             <Link to="/upload-notes"><Button customClass="bg-white shadow-lg border-2 flex w-full items-center justify-centerbg-white shadow-lg border-2 flex w-full items-center justify-center"><NotebookPen color="#4f028f" size={65}/> Upload Notes</Button></Link>
             <Link to="/upload-papers"><Button customClass="bg-white shadow-lg border-2 flex w-full items-center justify-center"><StickyNote color="#4f028f" size={65}/>Upload Old-Papers</Button></Link>
-            <div className="text-xl text-white rounded-md bg-primary px-5 py-2" onClick={handleLogout}><LogOut/></div>
+            <div className="text-xl cursor-pointer text-white rounded-md bg-primary px-5 py-2" onClick={handleLogout}><LogOut/></div>
           </div>
           
         </div>
